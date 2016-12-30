@@ -1,8 +1,8 @@
 /*
  * @Author: ibeeger
  * @Date:   2016-12-28 19:01:10
- * @Last Modified by:   ibeeger
- * @Last Modified time: 2016-12-29 14:48:21
+ * @Last Modified by:   willclass
+ * @Last Modified time: 2016-12-30 09:59:21
  */
 
 'use strict';
@@ -50,13 +50,17 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	list:{
-	    justifyContent: 'center',
+	    justifyContent: 'flex-start',
         flexDirection: 'row',
         flexWrap: 'wrap',
 	},
+	item:{
+		width:100,
+		height:100,
+		margin:10	
+	},
 	row: {
 		backgroundColor: '#CCC',
-        margin: 10,
         width: 100,
         height: 100
 	}

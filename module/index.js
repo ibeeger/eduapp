@@ -1,8 +1,8 @@
 /*
 * @Author: ibeeger
 * @Date:   2016-12-28 14:03:25
-* @Last Modified by:   ibeeger
-* @Last Modified time: 2016-12-29 14:49:03
+* @Last Modified by:   willclass
+* @Last Modified time: 2016-12-30 10:03:04
 */
 
 'use strict';
@@ -19,7 +19,7 @@ import {
 import styles from "./style.js"
 
 var hashCode = function(str) {
-  var hash = 15;
+  var hash = parseInt(Math.random()*25);
   for (var ii = str.length - 1; ii >= 0; ii--) {
     hash = ((hash << 5) - hash) + str.charCodeAt(ii);
   }
@@ -41,23 +41,30 @@ constructor(props) {
   _renderRow(rowData: string, sectionID: number, rowID: number){
      var rowHash = Math.abs(hashCode(rowData));
     return (
-      <View>
+      <View style={styles.item}>
       <TouchableHighlight onPress={() => {
            this.props.navigator.push({id:"list",index:0,params:{message:"列表"}})
         }}>
           <View  style={styles.row}>
             <Text style={styles.text}>
-               文本
+               {rowData}
             </Text>
           </View>
       </TouchableHighlight>
       </View>
     );
   }
-  
+  componentWillReceiveProps(nextprops){
+   var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.props = nextprops;
+    this.state = {
+      dataSource: ds.cloneWithRows(this._genRows({}))
+    };
+  }
+
   _genRows(pressData: {[key: number]: boolean}): Array<string> {
     var dataBlob = [];
-    for (var ii = 0; ii < 100; ii++) {
+    for (var ii = 0; ii < 50; ii++) {
       var pressedText = pressData[ii] ? ' (pressed)' : '';
       dataBlob.push('Row ' + ii + pressedText);
     }
@@ -82,6 +89,8 @@ constructor(props) {
         </View>
         <View style={styles.container}>
           <ListView  contentContainerStyle={styles.list}
+          initialListSize={2}
+          pageSize={5}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
         />

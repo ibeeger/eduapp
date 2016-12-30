@@ -1,8 +1,8 @@
 /*
 * @Author: ibeeger
 * @Date:   2016-12-28 15:05:42
-* @Last Modified by:   ibeeger
-* @Last Modified time: 2016-12-28 19:54:24
+* @Last Modified by:   willclass
+* @Last Modified time: 2016-12-30 09:50:55
 */
 
 'use strict';
@@ -32,7 +32,7 @@ class Error extends Component {
 					<View style={styles.header}>
 						<View style={styles.titleBtn}>  
 						<TouchableHighlight onPress={() => {
-					           navigator.push({id:"homepage",index:0,params:{title:"首页"}})
+					           navigator.pop()
 					       }}><Text>返回</Text></TouchableHighlight>
        				</View>
 						<View style={styles.title}><Text style={styles.welcome}>{this.props.message}</Text></View>
