@@ -1,8 +1,8 @@
 /*
 * @Author: ibeeger
 * @Date:   2016-12-28 14:03:25
-* @Last Modified by:   willclass
-* @Last Modified time: 2016-12-30 10:03:04
+* @Last Modified by:   ibeeger
+* @Last Modified time: 2016-12-30 17:48:02
 */
 
 'use strict';
@@ -40,6 +40,7 @@ constructor(props) {
 }
   _renderRow(rowData: string, sectionID: number, rowID: number){
      var rowHash = Math.abs(hashCode(rowData));
+     
     return (
       <View style={styles.item}>
       <TouchableHighlight onPress={() => {
