@@ -17,22 +17,22 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	header: {
-		flex: 1,
+		height:60,
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: '#18bbf2',
 		flexDirection: 'row'
 	},
 	container: {
-		flex: 9,
+		flex: 1,
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		backgroundColor: '#F5FCFF',
 	},
 	welcome: {
-		fontSize: 20,
+		fontSize: 18,
 		textAlign: 'center',
-		margin: 10,
+		color:"#ffffff"
 	},
 	instructions: {
 		textAlign: 'center',
@@ -42,27 +42,69 @@ const styles = StyleSheet.create({
 	titleBtn: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		flex: 1,
+		height:60,
+		width:80,
+		backgroundColor:"rgb(24,189,255)",
 	},
 	title: {
-		flex: 5,
+		flex: 1,
+		height:60,
 		justifyContent: 'center',
 		alignItems: 'center',
+		backgroundColor:"rgb(24,189,255)",
 	},
-	list:{
-	    justifyContent: 'flex-start',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
+	list: {
+		justifyContent: 'flex-start',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
 	},
-	item:{
-		width:100,
-		height:100,
-		margin:10	
+	listtext: {
+		justifyContent: 'flex-start',
+		// flexDirection: 'row',
+		flexWrap: 'wrap',
+	},
+	itemline:{
+		width: Dimensions.get("window").width,
+		height:70,
+	},
+	item: {
+		width: 100,
+		height: 100,
+		margin: 10
+	},
+	text:{
+		fontSize:18
+	},
+	message:{
+		justifyContent: 'center',
+		alignItems: 'center',
+		flex:1
+	},
+	msgtext:{
+		fontSize:16,
+		color:"#555555"
+	},
+	tips:{
+		fontSize:14,
+		color:"#999999"
+	},
+	cols: {
+		
+		justifyContent: 'center',
+		alignItems: 'flex-start',
+		paddingLeft:15,
+		paddingRight:15,
+		height:70,
+		borderBottomWidth:1,
+		backgroundColor:"#ffffff",
+		borderBottomColor:"#cccccc"
 	},
 	row: {
-		backgroundColor: '#CCC',
-        width: 100,
-        height: 100
+		backgroundColor: 'rgb(24,189,255)',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: 100,
+		height: 100
 	}
 })
 

@@ -20,13 +20,12 @@ import {
 const INITIAL_ROUTE = {
   id:"homepage",
   index:0,
-  params:{title:"会通教育"}
+  params:{title:"高中知识点总结"}
 };
 
 
 export default class eduapp extends Component {
   configureScene(route, routeStack){
-
     return Navigator.SceneConfigs.PushFromRight
   }
     renderScene (route, navigator) {

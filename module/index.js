@@ -17,14 +17,8 @@ import {
 } from 'react-native';
 
 import styles from "./style.js"
+import Util from './config.js'
 
-var hashCode = function(str) {
-  var hash = parseInt(Math.random()*25);
-  for (var ii = str.length - 1; ii >= 0; ii--) {
-    hash = ((hash << 5) - hash) + str.charCodeAt(ii);
-  }
-  return hash;
-};
 
 
 class Index extends Component {
@@ -32,72 +26,82 @@ class Index extends Component {
 constructor(props) {
   super(props);
   this.props = props;
-   var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-  this.state = {
-    dataSource: ds.cloneWithRows(this._genRows({}))
-  };
+  let _this = this;
+  var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+   this.state = {
+      load:false
+    };
+
+    Util.fetchData({}).then(function(data) {
+      console.log(data)
+    _this.setState({
+      load:true,
+      dataSource: ds.cloneWithRows(data.data[0]["types"])
+    });
+  })
+
   this._renderRow = this._renderRow.bind(this);
+  this._pressRow = this._pressRow.bind(this);
 }
-  _renderRow(rowData: string, sectionID: number, rowID: number){
-     var rowHash = Math.abs(hashCode(rowData));
-     
-    return (
+
+
+
+renderList(){
+   return (<ListView  contentContainerStyle={styles.list}
+                  initialListSize={2}
+                  pageSize={5}
+                  dataSource={this.state.dataSource}
+                  renderRow={this._renderRow}
+                />)
+}
+
+renderMsg(){
+  return (
+   <View style={styles.message}>
+                  <Text style={styles.msgtext}>数据加载中...</Text>
+                </View>
+  )
+}
+
+  _renderRow(item,s,rowID){
+    
+    let subjectname = item.name;
+    return (  
       <View style={styles.item}>
-      <TouchableHighlight onPress={() => {
-           this.props.navigator.push({id:"list",index:0,params:{message:"列表"}})
-        }}>
+      <TouchableHighlight onPress={this._pressRow.bind(null,item.url,subjectname)}>
           <View  style={styles.row}>
             <Text style={styles.text}>
-               {rowData}
+               {subjectname}
             </Text>
           </View>
       </TouchableHighlight>
       </View>
     );
   }
-  componentWillReceiveProps(nextprops){
-   var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.props = nextprops;
-    this.state = {
-      dataSource: ds.cloneWithRows(this._genRows({}))
-    };
+
+  _pressRow(url,title) {
+    this.props.navigator.push({id:"list",index:0,params:{title:title,url:url}})
   }
 
-  _genRows(pressData: {[key: number]: boolean}): Array<string> {
-    var dataBlob = [];
-    for (var ii = 0; ii < 50; ii++) {
-      var pressedText = pressData[ii] ? ' (pressed)' : '';
-      dataBlob.push('Row ' + ii + pressedText);
-    }
-    return dataBlob;
-  }
-
-  _pressRow(rowID: number) {
-    this._pressData[rowID] = !this._pressData[rowID];
-    this.setState({dataSource: this.state.dataSource.cloneWithRows(
-      this._genRows(this._pressData)
-    )});
-  }
 
   render() {
      let navigator = this.props.navigator;
-    return (
-      <View style={styles.main}>
-        <View style={styles.header}>
-          <Text style={styles.welcome}>
-             {this.props.title} 
-          </Text>
+     let show = this.renderMsg();
+     if (this.state.load) {
+            show = this.renderList();
+        }
+        return (
+        <View style={styles.main}>
+          <View style={styles.header}>
+            <Text style={styles.welcome} numberOfLines={1}>
+               {this.props.title} 
+            </Text>
+          </View>
+          <View style={styles.container}>
+              {show}
+          </View>
         </View>
-        <View style={styles.container}>
-          <ListView  contentContainerStyle={styles.list}
-          initialListSize={2}
-          pageSize={5}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-        />
-        </View>
-      </View>
-    );
+      )
   }
 }
 
